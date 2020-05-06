@@ -3,6 +3,7 @@ import tkinter
 from Order_Pizza import *
 from Pizza import *
 import datetime
+import Main
 
 class CheckoutPage:
     def __init__(self, master, user_id, conn):
@@ -36,6 +37,9 @@ class CheckoutPage:
         self.order = Button(text="Send Order", command=self.order)
         self.order.grid(row=self.rows+2, column=self.columns+1, sticky=SW, padx=4, pady=4)
 
+        self.logout_button = Button(text="Log out", command=self.logout)
+        self.logout_button.grid(row=self.rows+3, column=self.columns+1, sticky=SW, padx=4, pady=4)
+
     def order(self):
         self.message = Label(text="Order Sent! Your Pizza will be delivered as soon as the quarantine is over :-)",
                              width=70)
@@ -47,6 +51,10 @@ class CheckoutPage:
                 self.conn.commit()
         except Error:
             pass
+
+    def logout(self):
+        self.root.destroy()
+        Main.main()
 
 
 def checkout(user_id):

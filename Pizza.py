@@ -118,7 +118,7 @@ class Chicken(PizzaDecorator):
 class Ketchup(PizzaDecorator):
     def __init__(self, pizza):
         super(Ketchup, self).__init__(pizza)
-        self.__ketchup_price = 1.4
+        self.__ketchup_price = 1.3
 
     @property
     def price(self):
@@ -134,7 +134,7 @@ class Ketchup(PizzaDecorator):
 class Olive(PizzaDecorator):
     def __init__(self, pizza):
         super(Olive, self).__init__(pizza)
-        self.__olive_price = 1.4
+        self.__olive_price = 1.0
 
     @property
     def price(self):
@@ -150,7 +150,7 @@ class Olive(PizzaDecorator):
 class Mozzarella(PizzaDecorator):
     def __init__(self, pizza):
         super(Mozzarella, self).__init__(pizza)
-        self.__mozzarella_price = 1.4
+        self.__mozzarella_price = 1.5
 
     @property
     def price(self):
@@ -166,7 +166,7 @@ class Mozzarella(PizzaDecorator):
 class BBQSauce(PizzaDecorator):
     def __init__(self, pizza):
         super(BBQSauce, self).__init__(pizza)
-        self.__bbqSauce_price = 1.4
+        self.__bbqSauce_price = 1.2
 
     @property
     def price(self):

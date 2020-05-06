@@ -102,7 +102,7 @@ class ChoosePizza:
 
     def __init__(self, master, pizza_name, user_id):
         self.root = master
-        self.root.geometry("430x500+200+200")
+        self.root.geometry("430x500+100+100")
         self.root.grid()
         # self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
@@ -128,23 +128,32 @@ class ChoosePizza:
         self.add_button.grid(row=3, column=1, columnspan=2, sticky=W, padx=4, pady=4)
 
     def change_ingredients(self, pizza_name):
-        self.root.geometry("700x500+100+100")
+        self.root.geometry("730x500+100+100")
         self.close = Button(self.root, text="Save Changes", width=25, command=self.save_changes)
         self.close.grid(row=2, column=0, sticky=S, padx=4, pady=4)
         # check_buttons:
         self.cheese_button = Button(self.root, text=" Add Cheese", command=lambda: {self.add_extension(1.4, 'cheese')})
-        self.cheese_button.grid(row=1, column=2, sticky=N, padx=4, pady=4)
-
+        self.cheese_button.grid(row=1, column=2, sticky=S, padx=4, pady=4)
+        self.ketchup_button = Button(self.root, text=" Add Ketchup", command=lambda: {self.add_extension(1.3, 'ketchup')})
+        self.ketchup_button.grid(row=2, column=2, sticky=S, padx=4, pady=4)
+        self.bbq_button = Button(self.root, text=" Add barbecue sauce", command=lambda: {self.add_extension(1.2, 'barbecue sauce')})
+        self.bbq_button.grid(row=3, column=2, sticky=S, padx=4, pady=4)
+        self.sausage_button = Button(self.root, text="Add Sausage", command=lambda: {self.add_extension(1.4, 'sausage')})
+        self.sausage_button.grid(row=4, column=2, sticky=S, padx=4, pady=4)
+        self.olives_button = Button(self.root, text="Add Olives", command=lambda: {self.add_extension(1.0, 'olives')})
+        self.olives_button.grid(row=5, column=2, sticky=S, padx=4, pady=4)
 
     def save_changes(self):
         self.root.geometry("430x500+100+100")
         self.close.destroy()
-        # self.sausage_button.destroy()
-        # self.bbq_button.destroy()
-        # self.marshmallow_button.destroy()
+        self.sausage_button.destroy()
+        self.bbq_button.destroy()
+        self.olives_button.destroy()
         # self.pineapple_button.destroy()
         self.cheese_button.destroy()
-        # self.tomato_button.destroy()
+        self.ketchup_button.destroy()
+        # self.message.destroy()
+
 
     def add_to_card(self, pizza_name, user_id):
         row_num = self.cursor.execute("""SELECT * FROM card""").rowcount + 2
@@ -154,12 +163,19 @@ class ChoosePizza:
         self.connection.commit()
         self.message = Message(self.root, text="Added to Cart")
         self.message.grid(row=4, column=1, columnspan=2, padx=4, pady=4)
+        self.root.after(1200, self.clear_message)
 
     def add_extension(self, extension_price, extension):
         if extension == '0':
             pass
         self.pizza_receipt = self.pizza_receipt + ', ' + str(extension)
         self.pizza_price = int(self.pizza[1]) + extension_price
+        self.message = Message(self.root, text="Added "+str(extension))
+        self.message.grid(row=4, column=3, padx=4, pady=4)
+        self.root.after(1200, self.clear_message)
+
+    def clear_message(self):
+        self.message.destroy()
 
 
 def order(username):
@@ -172,16 +188,10 @@ def order(username):
     root.mainloop()
 
 
-        # self.sausage = BooleanVar()
-        # self.tomato = BooleanVar()
-        # self.tomato_button = Checkbutton(self.root, text="Tomato")
-        # self.tomato_button.grid(row=2, column=2, sticky=N, padx=4, pady=4)
-        # self.sausage_button = Checkbutton(self.root, text="Sausage")
-        # self.sausage_button.grid(row=3, column=2, sticky=N, padx=4, pady=4)
+
+
+
         # self.pineapple = BooleanVar()
         # self.pineapple_button = Checkbutton(self.root, text="Pineapple")
         # self.pineapple_button.grid(row=4, column=2, sticky=S, padx=4, pady=4)
-        # self.bbq_button = Checkbutton(self.root, text="BBQ Sauce")
-        # self.bbq_button.grid(row=5, column=2, sticky=S, padx=4, pady=4)
-        # self.marshmallow_button = Checkbutton(self.root, text="Marshmallow")
-        # self.marshmallow_button.grid(row=6, column=2, sticky=S, padx=4, pady=4)
+
